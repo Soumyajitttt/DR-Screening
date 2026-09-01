@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>DR Screening</title>
+<style>
+body{font-family:sans-serif;max-width:480px;margin:60px auto;text-align:center}
+#result{margin-top:24px;text-align:left}
+#result img{max-width:100%;margin-top:10px;border-radius:6px}
+</style></head>
+<body>
+<h1>DR Screening — Demo</h1>
+<input type="file" id="imageInput" accept="image/*"><br>
+<button onclick="analyze()">Analyze</button>
+<div id="status"></div>
+<div id="result"></div>
+<script>
+async function analyze() {
+    const fileInput = document.getElementById('imageInput');
+    if (!fileInput.files.length) { alert('Select an image first'); return; }
+    document.getElementById('status').innerText = 'Processing... (~30-60s)';
+    document.getElementById('result').innerHTML = '';
+    const formData = new FormData();
+    formData.append('image', fileInput.files[0]);
+    const res = await fetch('/analyze', { method: 'POST', body: formData });
+    const data = await res.json();
+    document.getElementById('status').innerText = '';
+    if (data.error) { document.getElementById('result').innerText = 'Error: ' + data.error; return; }
+    let html = `<p><b>Status:</b> ${data.status}</p><p><b>Score:</b> ${data.score} / 4</p>`;
+    if (data.enhanced_url) html += `<img src="${data.enhanced_url}">`;
+    document.getElementById('result').innerHTML = html;
+}
+</script>
+</body></html>
