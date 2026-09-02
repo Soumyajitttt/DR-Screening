@@ -1,31 +1,108 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><title>DR Screening</title>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>DR Screening</title>
 <style>
-body{font-family:sans-serif;max-width:480px;margin:60px auto;text-align:center}
-#result{margin-top:24px;text-align:left}
-#result img{max-width:100%;margin-top:10px;border-radius:6px}
-</style></head>
+    body { font-family: sans-serif; max-width: 480px; margin: 60px auto; text-align: center; }
+    button { margin-top: 12px; padding: 8px 20px; cursor: pointer; }
+    #status { margin-top: 12px; color: #555; }
+    #resultsPage { display: none; text-align: left; }
+    #resultsPage h2 { text-align: center; }
+    .row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee; }
+    .label { font-weight: bold; }
+    .referable { display: none; padding: 10px; border-radius: 6px; text-align: center; font-weight: bold; margin: 16px 0; }
+    .referable.yes { background: #fdecea; color: #b3261e; }
+    .referable.no { background: #e6f4ea; color: #1e7b34; }
+    #resultsPage img { max-width: 100%; margin-top: 16px; border-radius: 6px; display: none; }
+    #backBtn { display: block; margin: 20px auto 0; }
+</style>
+</head>
 <body>
-<h1>DR Screening — Demo</h1>
-<input type="file" id="imageInput" accept="image/*"><br>
-<button onclick="analyze()">Analyze</button>
-<div id="status"></div>
-<div id="result"></div>
+
+<div id="uploadPage">
+    <h1>DR Screening — Demo</h1>
+    <input type="file" id="imageInput" accept="image/*"><br>
+    <button onclick="analyze()">Analyze</button>
+    <div id="status"></div>
+</div>
+
+<div id="resultsPage">
+    <h2>Screening Result</h2>
+    <div id="referableBanner" class="referable"></div>
+    <div class="row"><span class="label">Quality</span><span id="rStatus"></span></div>
+    <div class="row"><span class="label">Quality Score</span><span id="rScore"></span></div>
+    <div class="row" id="gradeRow"><span class="label">DR Grade</span><span id="rGrade"></span></div>
+    <div class="row" id="confRow"><span class="label">Confidence</span><span id="rConf"></span></div>
+    <div class="row" id="maRow"><span class="label">Microaneurysms</span><span id="rMa"></span></div>
+    <div class="row" id="hemRow"><span class="label">Hemorrhages</span><span id="rHem"></span></div>
+    <div class="row" id="exRow"><span class="label">Exudates</span><span id="rEx"></span></div>
+    <img id="rImg">
+    <button id="backBtn" onclick="showUpload()">New Scan</button>
+</div>
+
 <script>
+function showUpload() {
+    document.getElementById('resultsPage').style.display = 'none';
+    document.getElementById('uploadPage').style.display = 'block';
+    document.getElementById('imageInput').value = '';
+}
+
 async function analyze() {
     const fileInput = document.getElementById('imageInput');
     if (!fileInput.files.length) { alert('Select an image first'); return; }
     document.getElementById('status').innerText = 'Processing... (~30-60s)';
-    document.getElementById('result').innerHTML = '';
+
     const formData = new FormData();
     formData.append('image', fileInput.files[0]);
+
+    try {
     const res = await fetch('/analyze', { method: 'POST', body: formData });
     const data = await res.json();
     document.getElementById('status').innerText = '';
-    if (data.error) { document.getElementById('result').innerText = 'Error: ' + data.error; return; }
-    let html = `<p><b>Status:</b> ${data.status}</p><p><b>Score:</b> ${data.score} / 4</p>`;
-    if (data.enhanced_url) html += `<img src="${data.enhanced_url}">`;
-    document.getElementById('result').innerHTML = html;
+
+    if (data.error) {
+        document.getElementById('status').innerText = 'Error: ' + data.error;
+        return;
+    }
+
+    document.getElementById('rStatus').innerText = data.status;
+    document.getElementById('rScore').innerText = data.score + ' / 4';
+
+    const hasGrade = data.grade !== undefined;
+    ['gradeRow', 'confRow', 'maRow', 'hemRow', 'exRow'].forEach(id => {
+      document.getElementById(id).style.display = hasGrade ? 'flex' : 'none';
+    });
+
+    const banner = document.getElementById('referableBanner');
+    if (hasGrade) {
+        document.getElementById('rGrade').innerText = data.grade;
+        document.getElementById('rConf').innerText = (data.confidence * 100).toFixed(1) + '%';
+        document.getElementById('rMa').innerText = data.maCount;
+        document.getElementById('rHem').innerText = data.hemCount;
+        document.getElementById('rEx').innerText = data.exudateCount;
+
+        const referable = data.grade >= 2;
+        banner.className = 'referable ' + (referable ? 'yes' : 'no');
+        banner.innerText = referable ? 'Referable DR — refer to ophthalmologist' : 'Not referable';
+        banner.style.display = 'block';
+    } else {
+        banner.style.display = 'none';
+    }
+
+    if (data.enhanced_url) {
+        document.getElementById('rImg').src = data.enhanced_url;
+        document.getElementById('rImg').style.display = 'block';
+    } else {
+        document.getElementById('rImg').style.display = 'none';
+    }
+
+    document.getElementById('uploadPage').style.display = 'none';
+    document.getElementById('resultsPage').style.display = 'block';
+    } catch (err) {
+    document.getElementById('status').innerText = 'Request failed: ' + err;
+    }
 }
 </script>
-</body></html>
+</body>
+</html>
