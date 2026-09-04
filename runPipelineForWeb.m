@@ -34,6 +34,7 @@ function runPipelineForWeb(imagePath, outputDir)
     [predictedLabel, scores] = classify(drNet, imgResized);
     result.grade = double(string(predictedLabel));
     result.confidence = max(scores);
+    generateGradCAM(drNet, imgResized, predictedLabel, fullfile(outputDir, 'gradcam.png'), imgOut);
 
     fid = fopen(fullfile(outputDir, 'result.json'), 'w');
     fprintf(fid, '%s', jsonencode(result));
