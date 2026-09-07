@@ -1,0 +1,52 @@
+[
+  {
+    "id": "P-1024",
+    "name": "Ramesh Kumar",
+    "age": 54,
+    "gender": "Male",
+    "village": "Rampur PHC Center",
+    "screenDate": "07 Sep 2026",
+    "grade": 3,
+    "gradeText": "Grade 3: Severe DR"
+  },
+  {
+    "id": "P-1025",
+    "name": "Sunita Devi",
+    "age": 48,
+    "gender": "Female",
+    "village": "Barnala PHC Center",
+    "screenDate": "06 Sep 2026",
+    "grade": 0,
+    "gradeText": "Grade 0: Normal"
+  },
+  {
+    "id": "P-1026",
+    "name": "Lakshmi Narayanan",
+    "age": 61,
+    "gender": "Male",
+    "village": "Kollam PHC Center",
+    "screenDate": "05 Sep 2026",
+    "grade": 2,
+    "gradeText": "Grade 2: Moderate DR"
+  },
+  {
+    "id": "P-1027",
+    "name": "Rajesh Patel",
+    "age": 52,
+    "gender": "Male",
+    "village": "Anand PHC Center",
+    "screenDate": "04 Sep 2026",
+    "grade": 1,
+    "gradeText": "Grade 1: Mild DR"
+  },
+  {
+    "id": "P-1028",
+    "name": "Ananya Sharma",
+    "age": 45,
+    "gender": "Female",
+    "village": "Rampur PHC Center",
+    "screenDate": "03 Sep 2026",
+    "grade": 4,
+    "gradeText": "Grade 4: Proliferative DR"
+  }
+]

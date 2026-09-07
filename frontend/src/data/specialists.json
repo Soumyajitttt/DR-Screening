@@ -1,0 +1,23 @@
+[
+  {
+    "id": "SP-01",
+    "name": "Dr. Amit Sharma",
+    "role": "Ophthalmologist",
+    "facility": "District Civil Hospital",
+    "distanceKm": 12
+  },
+  {
+    "id": "SP-02",
+    "name": "Dr. Priya Roy",
+    "role": "Vitreoretinal Specialist",
+    "facility": "Apex Eye Institute",
+    "distanceKm": 28
+  },
+  {
+    "id": "SP-03",
+    "name": "Dr. V. K. Murthy",
+    "role": "Retina Surgeon",
+    "facility": "AIIMS Tele-Retina Hub",
+    "distanceKm": 45
+  }
+]
