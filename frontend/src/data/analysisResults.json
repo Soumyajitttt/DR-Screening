@@ -1,0 +1,87 @@
+{
+  "P-1024": {
+    "status": "enhanced",
+    "grade": 3,
+    "gradeText": "Grade 3: Severe DR",
+    "confidence": 0.964,
+    "maCount": 14,
+    "hemCount": 4,
+    "exudateCount": 1,
+    "gradcam_url": null,
+    "enhanced_url": null,
+    "quality": {
+      "fieldQualityScore": 94,
+      "illumination": "Acceptable",
+      "macularCentering": "Valid"
+    },
+    "recommendation": "Immediate referral to District Hospital Retinal Specialist for evaluation within 14 days."
+  },
+  "P-1025": {
+    "status": "enhanced",
+    "grade": 0,
+    "gradeText": "Grade 0: Normal",
+    "confidence": 0.988,
+    "maCount": 0,
+    "hemCount": 0,
+    "exudateCount": 0,
+    "gradcam_url": null,
+    "enhanced_url": null,
+    "quality": {
+      "fieldQualityScore": 97,
+      "illumination": "Acceptable",
+      "macularCentering": "Valid"
+    },
+    "recommendation": "No signs of retinopathy detected. Routine annual screening recommended."
+  },
+  "P-1026": {
+    "status": "enhanced",
+    "grade": 2,
+    "gradeText": "Grade 2: Moderate DR",
+    "confidence": 0.912,
+    "maCount": 8,
+    "hemCount": 2,
+    "exudateCount": 3,
+    "gradcam_url": null,
+    "enhanced_url": null,
+    "quality": {
+      "fieldQualityScore": 89,
+      "illumination": "Acceptable",
+      "macularCentering": "Valid"
+    },
+    "recommendation": "Follow-up screening recommended within 6 months."
+  },
+  "P-1027": {
+    "status": "enhanced",
+    "grade": 1,
+    "gradeText": "Grade 1: Mild DR",
+    "confidence": 0.874,
+    "maCount": 3,
+    "hemCount": 0,
+    "exudateCount": 0,
+    "gradcam_url": null,
+    "enhanced_url": null,
+    "quality": {
+      "fieldQualityScore": 91,
+      "illumination": "Acceptable",
+      "macularCentering": "Valid"
+    },
+    "recommendation": "Routine annual screening recommended."
+  },
+  "P-1028": {
+    "status": "enhanced",
+    "grade": 4,
+    "gradeText": "Grade 4: Proliferative DR",
+    "confidence": 0.979,
+    "maCount": 21,
+    "hemCount": 6,
+    "exudateCount": 5,
+    "gradcam_url": null,
+    "enhanced_url": null,
+    "quality": {
+      "fieldQualityScore": 92,
+      "illumination": "Acceptable",
+      "macularCentering": "Valid"
+    },
+    "recommendation": "Urgent referral required. Risk of severe vision loss without immediate intervention."
+  }
+}
