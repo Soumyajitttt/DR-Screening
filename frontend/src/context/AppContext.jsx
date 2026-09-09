@@ -1,11 +1,11 @@
-import { createContext, useContext, useMemo, useState } from "react";
-import initialPatients from "../data/patients.json";
-import initialAnalysisResults from "../data/analysisResults.json";
-import initialSpecialists from "../data/specialists.json";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { useAuth } from "./AuthContext";
+import * as patientsApi from "../api/patients";
+import * as analysisApi from "../api/analysis";
+import * as specialistsApi from "../api/specialists";
 
 const AppContext = createContext(null);
 
-// Maps numeric grade -> label text, used when adding a new patient etc.
 export const GRADE_LABELS = {
   0: "Grade 0: Normal",
   1: "Grade 1: Mild DR",
@@ -15,77 +15,100 @@ export const GRADE_LABELS = {
 };
 
 export function AppProvider({ children }) {
-  const [patients, setPatients] = useState(initialPatients);
-  const [analysisResults, setAnalysisResults] = useState(initialAnalysisResults);
-  const [specialists] = useState(initialSpecialists);
-  const [activePatientId, setActivePatientId] = useState(initialPatients[0]?.id ?? null);
+  const { isAuthenticated } = useAuth();
+
+  const [patients, setPatients] = useState([]);
+  const [patientsLoading, setPatientsLoading] = useState(false);
+  const [patientsError, setPatientsError] = useState("");
+
+  const [specialists, setSpecialists] = useState([]);
+
+  const [activePatientId, setActivePatientId] = useState(null);
+  const [activeAnalysis, setActiveAnalysis] = useState(null);
+  const [analysisLoading, setAnalysisLoading] = useState(false);
 
   const activePatient = useMemo(
     () => patients.find((p) => p.id === activePatientId) ?? null,
     [patients, activePatientId]
   );
 
-  const activeAnalysis = useMemo(
-    () => (activePatientId ? analysisResults[activePatientId] : null),
-    [analysisResults, activePatientId]
-  );
+  async function refreshPatients() {
+    setPatientsLoading(true);
+    setPatientsError("");
+    try {
+      const data = await patientsApi.getPatients();
+      setPatients(data);
+      setActivePatientId((current) => current ?? data[0]?.id ?? null);
+    } catch (err) {
+      setPatientsError(err.message || "Failed to load patients");
+    } finally {
+      setPatientsLoading(false);
+    }
+  }
 
-  function addPatient({ name, age, gender }) {
-    const newId = `P-${1024 + patients.length}`;
-    const newPatient = {
-      id: newId,
-      name,
-      age,
-      gender,
-      village: "Unassigned PHC Center",
-      screenDate: new Date().toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric"
-      }),
-      grade: 1,
-      gradeText: GRADE_LABELS[1]
-    };
+  // Load patients + specialists once logged in.
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setPatients([]);
+      setSpecialists([]);
+      setActivePatientId(null);
+      setActiveAnalysis(null);
+      return;
+    }
+    refreshPatients();
+    specialistsApi.getSpecialists().then(setSpecialists).catch(() => setSpecialists([]));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated]);
+
+  // Fetch the analysis result whenever the active patient changes.
+  useEffect(() => {
+    if (!isAuthenticated || !activePatientId) {
+      setActiveAnalysis(null);
+      return;
+    }
+    setAnalysisLoading(true);
+    analysisApi
+      .getAnalysis(activePatientId)
+      .then(setActiveAnalysis)
+      .catch(() => setActiveAnalysis(null))
+      .finally(() => setAnalysisLoading(false));
+  }, [isAuthenticated, activePatientId]);
+
+  async function addPatient({ name, age, gender, village }) {
+    const newPatient = await patientsApi.createPatient({ name, age, gender, village });
     setPatients((prev) => [newPatient, ...prev]);
     return newPatient;
   }
 
-  // Placeholder for a real upload -> AI pipeline call (see webapp/app.py /analyze).
-  // For now it just returns whatever hardcoded analysis exists for the patient,
-  // or a generic "pending" shape if none exists yet.
-  function runAnalysis(patientId, _imageFile) {
-    return (
-      analysisResults[patientId] ?? {
-        status: "pending",
-        grade: null,
-        gradeText: "Awaiting analysis",
-        confidence: null,
-        maCount: null,
-        hemCount: null,
-        exudateCount: null,
-        gradcam_url: null,
-        enhanced_url: null,
-        quality: null,
-        recommendation: ""
-      }
+  // Uploads a fundus image for a patient and runs it through the backend's
+  // analysis pipeline (see backend/src/utils/runMatlabPipeline.js).
+  async function analyzeImage(patientId, file) {
+    const result = await analysisApi.uploadAnalysis(patientId, file);
+    setActiveAnalysis(result);
+    setPatients((prev) =>
+      prev.map((p) => (p.id === patientId ? { ...p, grade: result.grade, gradeText: result.gradeText } : p))
     );
+    return result;
   }
 
-  function setPatientAnalysis(patientId, result) {
-    setAnalysisResults((prev) => ({ ...prev, [patientId]: result }));
+  async function sendReferral(specialistId) {
+    return specialistsApi.sendReferral(specialistId, activePatientId);
   }
 
   const value = {
     patients,
+    patientsLoading,
+    patientsError,
     specialists,
-    analysisResults,
     activePatientId,
     setActivePatientId,
     activePatient,
     activeAnalysis,
+    analysisLoading,
     addPatient,
-    runAnalysis,
-    setPatientAnalysis
+    analyzeImage,
+    sendReferral,
+    refreshPatients
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

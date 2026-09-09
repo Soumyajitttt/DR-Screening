@@ -1,4 +1,8 @@
 import { useNavigate } from "react-router-dom";
+import Hero01 from "../components/originkit/hero-01";
+import Features01 from "../components/originkit/features-01";
+import Footer02 from "../components/originkit/footer-02";
+import ScrollReveal from "../components/ScrollReveal";
 
 const STATS = [
   { label: "Diabetic Adults in India", value: "77 Million+" },
@@ -38,42 +42,52 @@ export default function LandingPage() {
   const navigate = useNavigate();
 
   return (
-    <section>
-      <div>
-        <h1>AI Diabetic Retinopathy Screening</h1>
-        <p>
-          A field-tested, explainable AI solution designed for portable fundus cameras across rural Primary
-          Healthcare Centres (PHCs) in India.
-        </p>
+    <>
+      {/* Hero already runs its own on-load reveal (motion/react + CSS
+          keyframes), so it's left as-is - everything below is off-screen
+          at first paint and gets a GSAP ScrollTrigger arrival animation
+          the moment it scrolls into view instead. */}
+      <Hero01 />
 
-        <div>
-          <button onClick={() => navigate("/database")}>Access Patient Database</button>
-          <button onClick={() => navigate("/report")}>Start Image Analysis</button>
-          <button onClick={() => navigate("/specialists")}>Referral Network</button>
-        </div>
+      <ScrollReveal as="div" y={50}>
+        <Features01 />
+      </ScrollReveal>
 
-        <div>
+      <section className="mx-auto max-w-6xl space-y-8 px-4 py-10">
+        <ScrollReveal as="div" stagger blur={10} className="grid grid-cols-2 gap-4 md:grid-cols-4">
           {STATS.map((stat) => (
-            <div key={stat.label}>
-              <div>{stat.value}</div>
-              <div>{stat.label}</div>
+            <div key={stat.label} className="rounded-lg border border-slate-200 bg-white p-4 text-center shadow-sm">
+              <div className="text-xl font-bold text-sky-600">{stat.value}</div>
+              <div className="mt-1 text-xs text-slate-500">{stat.label}</div>
             </div>
           ))}
-        </div>
-      </div>
+        </ScrollReveal>
 
-      <div>
-        <h2>Application Flow &amp; Wireframe Sections</h2>
-        <div>
-          {FLOW_CARDS.map((card) => (
-            <div key={card.title} onClick={() => navigate(card.to)}>
-              <h3>{card.title}</h3>
-              <p>{card.description}</p>
-              <span>{card.cta} &rarr;</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+        <ScrollReveal as="div" y={30} className="rounded-lg border border-slate-200 bg-white p-6">
+          <ScrollReveal as="h2" blur={8} className="mb-4 text-lg font-semibold text-slate-800">
+            Application Flow &amp; Wireframe Sections
+          </ScrollReveal>
+          <ScrollReveal as="div" stagger delay={0.1} className="grid gap-5 md:grid-cols-2">
+            {FLOW_CARDS.map((card) => (
+              <div
+                key={card.title}
+                onClick={() => navigate(card.to)}
+                className="flex cursor-pointer flex-col justify-between rounded-lg border border-slate-200 p-5 transition hover:-translate-y-0.5 hover:border-sky-400 hover:shadow-md"
+              >
+                <div>
+                  <h3 className="font-semibold text-slate-800">{card.title}</h3>
+                  <p className="mt-1 text-sm text-slate-500">{card.description}</p>
+                </div>
+                <span className="mt-4 text-sm font-semibold text-sky-600">{card.cta} &rarr;</span>
+              </div>
+            ))}
+          </ScrollReveal>
+        </ScrollReveal>
+      </section>
+
+      <ScrollReveal as="div" y={50}>
+        <Footer02 />
+      </ScrollReveal>
+    </>
   );
 }
