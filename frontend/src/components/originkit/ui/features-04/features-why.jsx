@@ -36,7 +36,7 @@ const AVATARS = [
 
 const FEATURES = {
   focus: {
-    title: "Focus",
+    title: "Scanning",
     body: "Keep every project organized, reduce distractions, and help your team stay aligned on what matters most.",
     art: {
       src: asset("focus.png"),
@@ -47,7 +47,7 @@ const FEATURES = {
     }
   },
   connect: {
-    title: "Connect",
+    title: "Analysis",
     body: "Integrate with your favorite tools to create a connected workspace without changing how your team works.",
     art: {
       src: asset("connect.png"),
@@ -58,7 +58,7 @@ const FEATURES = {
     }
   },
   scale: {
-    title: "Scale",
+    title: "Report Generation",
     body: "From startups to enterprise teams, AstraCore grows with your business while keeping every workflow simple.",
     art: {
       src: asset("scale.png"),
@@ -150,7 +150,7 @@ export const FeaturesWhy = () => (
                 <Plate innerClassName="h-[76px] items-center gap-[12px] px-[20px] py-[12px]">
                   <img src={asset("pie-chart.svg")} alt="" className="size-[24px] shrink-0" />
                   <p className="font-tight text-[16px] leading-[1.2] font-medium whitespace-nowrap text-black desktop-sm:text-[18px]">
-                    99.99% Platform Uptime
+                    ~ 97.67% Model Accuracy
                   </p>
                 </Plate>
               </ScrollReveal>
