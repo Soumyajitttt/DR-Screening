@@ -4,8 +4,8 @@ import Modal from "./Modal";
 const initialForm = { name: "", age: "", gender: "Female" };
 
 const inputClasses =
-  "w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500";
-const labelClasses = "mb-1 block text-sm font-semibold text-slate-700";
+  "w-full rounded-xl border border-black/10 bg-white px-3 py-2 font-tight text-sm text-[#010110] placeholder:text-[#8a8f98] focus:border-[#010110] focus:outline-none focus:ring-1 focus:ring-[#010110]/15";
+const labelClasses = "mb-1 block font-tight text-sm font-medium text-[#45545e]";
 
 export default function AddPatientModal({ open, onClose, onSubmit }) {
   const [form, setForm] = useState(initialForm);
@@ -78,13 +78,13 @@ export default function AddPatientModal({ open, onClose, onSubmit }) {
           <button
             type="button"
             onClick={onClose}
-            className="rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+            className="rounded-full border border-black/15 px-4 py-2 font-tight text-sm font-medium text-[#242424] transition hover:bg-[#f5f5f2]"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="rounded-md bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-700"
+            className="rounded-full bg-[#111318] px-4 py-2 font-tight text-sm font-semibold text-white transition hover:bg-black"
           >
             Save Patient
           </button>

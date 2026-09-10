@@ -16,11 +16,11 @@ export default function UserReportPage() {
   if (!activePatient) {
     return (
       <FadeIn>
-      <section className="rounded-lg border border-slate-200 bg-white p-6 text-center">
-        <p className="mb-4 text-sm text-slate-500">No patient selected. Go to the Database page and choose a patient.</p>
+      <section className="rounded-2xl bg-white p-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.04)]">
+        <p className="mb-4 font-tight text-sm text-[#45545e]">No patient selected. Go to the Database page and choose a patient.</p>
         <button
           onClick={() => navigate("/database")}
-          className="rounded-md bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-700"
+          className="rounded-full bg-[#111318] px-4 py-2 font-tight text-sm font-semibold text-white transition hover:bg-black"
         >
           Back to Database
         </button>
@@ -48,18 +48,18 @@ export default function UserReportPage() {
   return (
     <FadeIn>
     <section>
-      <div className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-lg border border-slate-200 bg-white p-4">
+      <div className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-white p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.04)]">
         <div>
-          <span className="rounded bg-sky-100 px-2 py-0.5 text-xs font-semibold text-sky-800">
+          <span className="rounded-full bg-[#efeff0] px-2 py-0.5 font-tight text-xs font-semibold text-[#010110]">
             ACTIVE USER REPORT
           </span>
-          <h2 className="mt-1 text-lg font-semibold text-slate-800">
+          <h2 className="mt-1 font-helvetica-neue text-lg font-medium text-[#010110]">
             {activePatient.name} (ID: {activePatient.id})
           </h2>
         </div>
         <button
           onClick={() => navigate("/database")}
-          className="rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+          className="rounded-full border border-black/15 px-4 py-2 font-tight text-sm font-medium text-[#242424] transition hover:bg-[#f5f5f2]"
         >
           &larr; Back to Database
         </button>
@@ -69,7 +69,7 @@ export default function UserReportPage() {
 
       {activeTab === "analysis" && (
         <>
-          {uploadError && <p className="mb-3 text-sm font-medium text-red-600">{uploadError}</p>}
+          {uploadError && <p className="mb-3 font-tight text-sm font-medium text-red-600">{uploadError}</p>}
           <AnalysisTab
             analysis={activeAnalysis}
             onImageSelected={handleImageSelected}

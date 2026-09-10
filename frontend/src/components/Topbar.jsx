@@ -16,22 +16,22 @@ export default function Topbar() {
   const title = TITLES[location.pathname] || "RetinaVision AI";
 
   return (
-    <header className="sticky top-0 z-30 flex items-center justify-between border-b border-slate-200 bg-white/80 px-6 py-3.5 backdrop-blur">
+    <header className="sticky top-0 z-30 flex items-center justify-between border-b border-black/5 bg-white/80 px-6 py-3.5 backdrop-blur">
       <div>
-        <h1 className="text-base font-semibold text-slate-800">{title}</h1>
-        <p className="text-xs text-slate-400">PHC Edition &middot; AI-assisted diabetic retinopathy screening</p>
+        <h1 className="font-helvetica-neue text-base font-medium text-[#010110]">{title}</h1>
+        <p className="font-tight text-xs text-[#8a8f98]">PHC Edition &middot; AI-assisted diabetic retinopathy screening</p>
       </div>
 
       {!isAuthenticated && (
         <button
           onClick={() => openAuthModal("login")}
-          className="rounded-md border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+          className="rounded-full border border-black/15 px-4 py-1.5 font-tight text-sm font-medium text-[#242424] transition-colors hover:bg-[#f5f5f2]"
         >
           Login / Register
         </button>
       )}
       {isAuthenticated && (
-        <span className="hidden text-sm text-slate-500 sm:inline">Signed in as {user?.name}</span>
+        <span className="hidden font-tight text-sm text-[#45545e] sm:inline">Signed in as {user?.name}</span>
       )}
     </header>
   );

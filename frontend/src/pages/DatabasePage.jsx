@@ -59,11 +59,11 @@ export default function DatabasePage() {
   return (
     <FadeIn>
     <section className="space-y-4">
-      <div className="rounded-lg border border-slate-200 bg-white p-4">
+      <div className="rounded-2xl bg-white p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.04)]">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h2 className="text-lg font-semibold text-slate-800">Database / Patient Registry</h2>
-            <p className="text-sm text-slate-500">Manage and search patient screening records</p>
+            <h2 className="font-helvetica-neue text-lg font-medium text-[#010110]">Database / Patient Registry</h2>
+            <p className="font-tight text-sm text-[#45545e]">Manage and search patient screening records</p>
           </div>
 
           <div className="flex gap-2">
@@ -72,11 +72,11 @@ export default function DatabasePage() {
               placeholder="Search patient name, ID, or village..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-64 max-w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+              className="w-64 max-w-full rounded-xl border border-black/10 bg-white px-3 py-2 font-tight text-sm text-[#010110] placeholder:text-[#8a8f98] focus:border-[#010110] focus:outline-none focus:ring-1 focus:ring-[#010110]/15"
             />
             <button
               onClick={() => setModalOpen(true)}
-              className="whitespace-nowrap rounded-md bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-700"
+              className="whitespace-nowrap rounded-full bg-[#111318] px-4 py-2 font-tight text-sm font-semibold text-white transition hover:bg-black"
             >
               Add New
             </button>
@@ -85,15 +85,15 @@ export default function DatabasePage() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-[220px_1fr]">
-        <div className="h-fit rounded-lg border border-slate-200 bg-white p-3">
-          <div className="mb-2 px-2 text-xs font-bold uppercase text-slate-400">Storage Drives</div>
+        <div className="h-fit rounded-2xl bg-white p-3 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.04)]">
+          <div className="mb-2 px-2 font-tight text-xs font-bold uppercase text-[#8a8f98]">Storage Drives</div>
           {GRADE_FILTERS.map((filter) => (
             <div
               key={filter.key}
               aria-selected={gradeFilter === filter.key}
               onClick={() => setGradeFilter(filter.key)}
-              className={`cursor-pointer rounded-md px-3 py-2 text-sm font-medium ${
-                gradeFilter === filter.key ? "bg-sky-100 text-sky-800" : "text-slate-600 hover:bg-slate-100"
+              className={`cursor-pointer rounded-xl px-3 py-2 font-tight text-sm font-medium ${
+                gradeFilter === filter.key ? "bg-[#efeff0] text-[#010110]" : "text-[#45545e] hover:bg-[#f5f5f5]"
               }`}
             >
               {filter.label}
@@ -102,8 +102,8 @@ export default function DatabasePage() {
         </div>
 
         <div>
-          {patientsLoading && <p className="mb-3 text-sm text-slate-500">Loading patients...</p>}
-          {patientsError && <p className="mb-3 text-sm font-medium text-red-600">{patientsError}</p>}
+          {patientsLoading && <p className="mb-3 font-tight text-sm text-[#45545e]">Loading patients...</p>}
+          {patientsError && <p className="mb-3 font-tight text-sm font-medium text-red-600">{patientsError}</p>}
           <PatientTable patients={filteredPatients} onViewReport={handleViewReport} />
         </div>
       </div>
