@@ -4,6 +4,7 @@ const authRoutes = require("./authRoutes");
 const patientRoutes = require("./patientRoutes");
 const analysisRoutes = require("./analysisRoutes");
 const specialistRoutes = require("./specialistRoutes");
+const publicAnalysisRoutes = require("./publicAnalysisRoutes");
 
 const router = express.Router();
 
@@ -16,5 +17,6 @@ router.use("/auth", authRoutes);
 router.use("/patients", requireAuth, patientRoutes);
 router.use("/analysis", requireAuth, analysisRoutes);
 router.use("/specialists", requireAuth, specialistRoutes);
+router.use("/analyze", publicAnalysisRoutes);
 
 module.exports = router;
