@@ -36,7 +36,7 @@ const Annotation = () => {
       </div>
 
       <p className="absolute lg:bottom-10 bottom-12 -left-10 lg:-left-20 flex w-[212px] rotate-[-10.6deg] flex-col justify-center text-center font-tillana text-[12px] lg:text-[18px] leading-[1.25] tracking-[-0.02em] text-[#144a58]">
-        <span>Free for every</span>
+        <span>For every</span>
         <span>rural PHC</span>
       </p>
     </div>

@@ -2,7 +2,7 @@ import { motion, useReducedMotion } from "motion/react";
 
 const easeOutCubic = [0.215, 0.61, 0.355, 1];
 
-const MARQUEE_REPEAT = 3;
+const MARQUEE_REPEAT = 2;
 
 const LogoItem = ({ logo, duplicate = false }) => (
   <li className="flex h-5.5 shrink-0 items-center opacity-80" aria-hidden={duplicate || undefined}>
