@@ -10,25 +10,25 @@ const DOT_COLORS = {
 
 function PatientRow({ patient, onViewReport }) {
   return (
-    <tr className="border-b border-slate-200 last:border-0 hover:bg-slate-50">
+    <tr className="border-b border-black/5 last:border-0 hover:bg-[#f8f8f8]">
       <td className="px-4 py-3">
-        <span className={`inline-block h-2.5 w-2.5 rounded-full ${DOT_COLORS[patient.grade] ?? "bg-slate-400"}`} />
+        <span className={`inline-block h-2.5 w-2.5 rounded-full ${DOT_COLORS[patient.grade] ?? "bg-[#8a8f98]"}`} />
       </td>
-      <td className="px-4 py-3 font-semibold text-slate-700">{patient.id}</td>
+      <td className="px-4 py-3 font-tight font-semibold text-[#242424]">{patient.id}</td>
       <td className="px-4 py-3">
-        <div className="font-medium text-slate-800">{patient.name}</div>
-        <div className="text-xs text-slate-500">
+        <div className="font-tight font-medium text-[#010110]">{patient.name}</div>
+        <div className="font-tight text-xs text-[#45545e]">
           {patient.age} Yrs • {patient.gender}
         </div>
       </td>
-      <td className="px-4 py-3 text-sm text-slate-600">{patient.screenDate}</td>
+      <td className="px-4 py-3 font-tight text-sm text-[#45545e]">{patient.screenDate}</td>
       <td className="px-4 py-3">
         <GradeBadge grade={patient.grade} gradeText={patient.gradeText} />
       </td>
       <td className="px-4 py-3">
         <button
           onClick={() => onViewReport(patient.id)}
-          className="rounded-md border border-sky-600 px-3 py-1 text-xs font-semibold text-sky-600 hover:bg-sky-50"
+          className="rounded-full border border-black/15 px-3 py-1 font-tight text-xs font-semibold text-[#010110] transition hover:bg-[#f5f5f2]"
         >
           View Report &rarr;
         </button>
@@ -39,10 +39,10 @@ function PatientRow({ patient, onViewReport }) {
 
 export default function PatientTable({ patients, onViewReport }) {
   return (
-    <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
+    <div className="overflow-hidden rounded-2xl bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.04)]">
       <table className="w-full border-collapse text-left">
         <thead>
-          <tr className="bg-slate-100 text-xs font-semibold uppercase text-slate-500">
+          <tr className="bg-[#f5f5f5] font-tight text-xs font-semibold uppercase text-[#45545e]">
             <th className="px-4 py-3">Status</th>
             <th className="px-4 py-3">Patient ID</th>
             <th className="px-4 py-3">Name &amp; Details</th>
@@ -57,7 +57,7 @@ export default function PatientTable({ patients, onViewReport }) {
           ))}
           {patients.length === 0 && (
             <tr>
-              <td colSpan={6} className="px-4 py-6 text-center text-sm text-slate-500">
+              <td colSpan={6} className="px-4 py-6 text-center font-tight text-sm text-[#45545e]">
                 No patients found.
               </td>
             </tr>

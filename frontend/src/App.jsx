@@ -17,7 +17,7 @@ import SpecialistsPage from "./pages/SpecialistsPage";
 // SaaS-style shell: a collapsible sidebar for navigation plus a slim top bar.
 function AppLayout() {
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex min-h-screen bg-[#f8f8f8]">
       <Sidebar />
       <div className="flex min-w-0 flex-1 flex-col">
         <Topbar />
@@ -78,7 +78,7 @@ export default function App() {
                 </ProtectedRoute>
               }
             />
-            <Route path="*" element={<p>Page not found.</p>} />
+            <Route path="*" element={<p className="font-tight text-sm text-[#45545e]">Page not found.</p>} />
           </Route>
         </Routes>
 

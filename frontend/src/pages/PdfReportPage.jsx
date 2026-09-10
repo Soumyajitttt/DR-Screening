@@ -9,11 +9,11 @@ export default function PdfReportPage() {
   if (!activePatient || !activeAnalysis) {
     return (
       <FadeIn>
-      <section className="rounded-lg border border-slate-200 bg-white p-6 text-center">
-        <p className="mb-4 text-sm text-slate-500">No patient/analysis selected yet.</p>
+      <section className="rounded-2xl bg-white p-6 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.04)]">
+        <p className="mb-4 font-tight text-sm text-[#45545e]">No patient/analysis selected yet.</p>
         <button
           onClick={() => navigate("/database")}
-          className="rounded-md bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-700"
+          className="rounded-full bg-[#111318] px-4 py-2 font-tight text-sm font-semibold text-white transition hover:bg-black"
         >
           Back to Database
         </button>
@@ -26,31 +26,31 @@ export default function PdfReportPage() {
     <FadeIn>
     <section>
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-slate-800">Report Preview</h2>
+        <h2 className="font-helvetica-neue text-lg font-medium text-[#010110]">Report Preview</h2>
         <div className="flex gap-2">
           <button
             onClick={() => navigate("/report")}
-            className="rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+            className="rounded-full border border-black/15 px-4 py-2 font-tight text-sm font-medium text-[#242424] transition hover:bg-[#f5f5f2]"
           >
             &larr; Edit
           </button>
           <button
             onClick={() => window.print()}
-            className="rounded-md bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-700"
+            className="rounded-full bg-[#111318] px-4 py-2 font-tight text-sm font-semibold text-white transition hover:bg-black"
           >
             Download / Print PDF &rarr;
           </button>
         </div>
       </div>
 
-      <div className="relative mx-auto max-w-3xl rounded-lg border border-slate-300 bg-white p-10 shadow">
-        <div className="mb-6 flex justify-between border-b-2 border-slate-200 pb-4">
+      <div className="relative mx-auto max-w-3xl rounded-2xl bg-white p-10 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.06)]">
+        <div className="mb-6 flex justify-between border-b-2 border-black/10 pb-4">
           <div>
-            <h2 className="text-xl font-bold text-sky-700">PRIMARY HEALTH CENTRE TELE-RETINA REPORT</h2>
-            <p className="text-sm text-slate-500">Diabetic Retinopathy Screening Network • India</p>
+            <h2 className="font-helvetica-neue text-xl font-medium text-[#010110]">PRIMARY HEALTH CENTRE TELE-RETINA REPORT</h2>
+            <p className="font-tight text-sm text-[#45545e]">Diabetic Retinopathy Screening Network • India</p>
           </div>
 
-          <div className="text-right text-sm text-slate-600">
+          <div className="text-right font-tight text-sm text-[#45545e]">
             <div>Report ID: R-{Math.floor(Math.random() * 900000 + 100000)}</div>
             <div>
               Date:{" "}
@@ -59,7 +59,7 @@ export default function PdfReportPage() {
           </div>
         </div>
 
-        <div className="mb-6 grid grid-cols-2 gap-3 rounded-md bg-slate-50 p-4 text-sm">
+        <div className="mb-6 grid grid-cols-2 gap-3 rounded-xl bg-[#f8f8f8] p-4 font-tight text-sm text-[#242424]">
           <div>
             <strong>Patient Name:</strong> {activePatient.name}
           </div>
@@ -75,13 +75,13 @@ export default function PdfReportPage() {
         </div>
 
         <div className="mb-6">
-          <h3 className="mb-2 border-b border-slate-200 pb-2 font-semibold text-slate-800">
+          <h3 className="mb-2 border-b border-black/10 pb-2 font-helvetica-neue font-medium text-[#010110]">
             Automated Diagnostic Findings
           </h3>
-          <div className="mb-2 text-sm">
+          <div className="mb-2 font-tight text-sm text-[#242424]">
             <strong>Grading Result:</strong> {activeAnalysis.gradeText}
           </div>
-          <p className="text-sm leading-relaxed text-slate-700">
+          <p className="font-tight text-sm leading-relaxed text-[#242424]">
             Microaneurysms: {activeAnalysis.maCount ?? "N/A"} <br />
             Intraretinal Hemorrhages: {activeAnalysis.hemCount ?? "N/A"} <br />
             Hard Exudates: {activeAnalysis.exudateCount ?? "N/A"} <br />
@@ -90,12 +90,12 @@ export default function PdfReportPage() {
           </p>
         </div>
 
-        <div className="border-t border-slate-200 pt-4">
-          <h4 className="mb-1 font-semibold text-slate-800">Recommendation</h4>
-          <p className="text-sm font-semibold text-red-800">{activeAnalysis.recommendation}</p>
+        <div className="border-t border-black/10 pt-4">
+          <h4 className="mb-1 font-helvetica-neue font-medium text-[#010110]">Recommendation</h4>
+          <p className="font-tight text-sm font-semibold text-red-800">{activeAnalysis.recommendation}</p>
         </div>
 
-        <div className="mt-10 text-sm text-slate-600">
+        <div className="mt-10 font-tight text-sm text-[#45545e]">
           <div>_______________________</div>
           <div>Medical Officer Signature</div>
         </div>

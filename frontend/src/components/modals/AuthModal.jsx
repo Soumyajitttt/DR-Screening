@@ -4,16 +4,16 @@ import Modal from "./Modal";
 import { useAuth } from "../../context/AuthContext";
 
 const inputClasses =
-  "w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500";
-const labelClasses = "mb-1 block text-sm font-semibold text-slate-700";
+  "w-full rounded-xl border border-black/10 bg-white px-3 py-2 font-tight text-sm text-[#010110] placeholder:text-[#8a8f98] focus:border-[#010110] focus:outline-none focus:ring-1 focus:ring-[#010110]/15";
+const labelClasses = "mb-1 block font-tight text-sm font-medium text-[#45545e]";
 
 function TabButton({ active, onClick, children }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`flex-1 rounded-md py-2 text-sm font-semibold transition ${
-        active ? "bg-white text-sky-700 shadow-sm" : "text-slate-500 hover:text-slate-700"
+      className={`flex-1 rounded-lg py-2 font-tight text-sm font-semibold transition ${
+        active ? "bg-white text-[#010110] shadow-sm" : "text-[#8a8f98] hover:text-[#45545e]"
       }`}
     >
       {children}
@@ -73,17 +73,17 @@ function LoginForm() {
         />
       </div>
 
-      {authError && <p className="text-sm font-medium text-red-600">{authError}</p>}
+      {authError && <p className="font-tight text-sm font-medium text-red-600">{authError}</p>}
 
       <button
         type="submit"
         disabled={submitting}
-        className="w-full rounded-md bg-sky-600 py-2 text-sm font-semibold text-white hover:bg-sky-700 disabled:opacity-60"
+        className="w-full rounded-full bg-[#111318] py-2.5 font-tight text-sm font-semibold text-white transition hover:bg-black disabled:opacity-60"
       >
         {submitting ? "Logging in..." : "Login"}
       </button>
 
-      <p className="text-xs text-slate-400">
+      <p className="font-tight text-xs text-[#8a8f98]">
         Demo credentials: <strong>PHC-RAMPUR-102</strong> / <strong>password123</strong>
       </p>
     </form>
@@ -184,7 +184,7 @@ function RegisterForm() {
 
       <div>
         <label htmlFor="reg-facility" className={labelClasses}>
-          Facility <span className="font-normal text-slate-400">(optional)</span>
+          Facility <span className="font-normal text-[#8a8f98]">(optional)</span>
         </label>
         <input
           id="reg-facility"
@@ -228,13 +228,13 @@ function RegisterForm() {
       </div>
 
       {(localError || authError) && (
-        <p className="text-sm font-medium text-red-600">{localError || authError}</p>
+        <p className="font-tight text-sm font-medium text-red-600">{localError || authError}</p>
       )}
 
       <button
         type="submit"
         disabled={submitting}
-        className="w-full rounded-md bg-teal-600 py-2 text-sm font-semibold text-white hover:bg-teal-700 disabled:opacity-60"
+        className="w-full rounded-full bg-[#111318] py-2.5 font-tight text-sm font-semibold text-white transition hover:bg-black disabled:opacity-60"
       >
         {submitting ? "Creating account..." : "Create account"}
       </button>
@@ -247,7 +247,7 @@ export default function AuthModal() {
 
   return (
     <Modal open={authModalOpen} title="Login / Register" onClose={closeAuthModal}>
-      <div className="mb-4 flex gap-1 rounded-lg bg-slate-100 p-1">
+      <div className="mb-4 flex gap-1 rounded-xl bg-[#f0f0ee] p-1">
         <TabButton active={authMode === "login"} onClick={() => setAuthMode("login")}>
           Login
         </TabButton>

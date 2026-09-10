@@ -1,8 +1,8 @@
 export default function SpecialistCard({ specialist, onSend }) {
   return (
-    <div className="mb-4 flex items-center justify-between rounded-lg border border-slate-200 bg-white p-5 hover:border-sky-400 hover:shadow-sm">
+    <div className="mb-4 flex items-center justify-between rounded-2xl bg-white p-5 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.04)] transition hover:shadow-[0_2px_4px_rgba(0,0,0,0.06),0_12px_32px_rgba(0,0,0,0.08)]">
       <div className="flex items-center gap-4">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-sky-100 font-bold text-sky-700">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#efeff0] font-tight font-bold text-[#010110]">
           {specialist.name
             .split(" ")
             .map((w) => w[0])
@@ -10,17 +10,17 @@ export default function SpecialistCard({ specialist, onSend }) {
             .join("")}
         </div>
         <div>
-          <h3 className="font-semibold text-slate-800">
-            {specialist.name} <span className="font-normal text-slate-500">({specialist.role})</span>
+          <h3 className="font-tight font-semibold text-[#010110]">
+            {specialist.name} <span className="font-normal text-[#45545e]">({specialist.role})</span>
           </h3>
-          <p className="text-sm text-slate-500">
+          <p className="font-tight text-sm text-[#45545e]">
             {specialist.facility} • <strong>{specialist.distanceKm} km away</strong>
           </p>
         </div>
       </div>
       <button
         onClick={() => onSend(specialist)}
-        className="rounded-md bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-700"
+        className="rounded-full bg-[#111318] px-4 py-2 font-tight text-sm font-semibold text-white transition hover:bg-black"
       >
         Send
       </button>
