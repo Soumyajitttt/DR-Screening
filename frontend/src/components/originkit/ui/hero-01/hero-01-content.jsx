@@ -155,7 +155,7 @@ const Hero01Content = () => {
   const prefersReducedMotion = useReducedMotion();
   const navDoneRef = useRef(false);
   const navigate = useNavigate();
-  const { openAuthModal } = useAuth();
+  const { openAuthModal, isAuthenticated } = useAuth();
 
   const [showHero, setShowHero] = useState(false);
   const [showDescription, setShowDescription] = useState(false);
@@ -188,10 +188,10 @@ const Hero01Content = () => {
   };
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-white px-3 pt-2.5 text-[#010110]">
+    <main className="min-h-screen overflow-x-hidden bg-white text-[#010110]">
       <section
         aria-labelledby="onchat-hero-heading"
-        className="relative mx-auto w-full overflow-hidden md:rounded-[10px] bg-[url(/originkit/hero-01/mesh-gradient.png)] bg-cover bg-center pb-0 rounded-[10px] ipad:pb-10 desktop-sm:min-h-200"
+        className="relative mx-auto w-full overflow-hidden bg-[url(/originkit/hero-01/mesh-gradient.png)] bg-cover bg-center pb-0 ipad:pb-10 desktop-sm:min-h-200"
       >
         <div className="relative z-10 flex w-full flex-col items-center px-3 pt-3 ipad:px-4 ipad:pt-4">
           <motion.header
@@ -213,13 +213,15 @@ const Hero01Content = () => {
             </a>
 
             <nav aria-label="Primary" className="flex items-center gap-3 ipad:gap-6">
-              <button
-                type="button"
-                onClick={openAuthModal}
-                className="text-sm font-medium leading-none text-[#363636] transition-colors duration-200 ease focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#010110] ipad:text-[15px] [@media(hover:hover)_and_(pointer:fine)]:hover:text-black"
-              >
-                Login
-              </button>
+              {!isAuthenticated && (
+                <button
+                  type="button"
+                  onClick={openAuthModal}
+                  className="text-sm font-medium leading-none text-[#363636] transition-colors duration-200 ease focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#010110] ipad:text-[15px] [@media(hover:hover)_and_(pointer:fine)]:hover:text-black"
+                >
+                  Login
+                </button>
+              )}
 
               <button
                 type="button"
