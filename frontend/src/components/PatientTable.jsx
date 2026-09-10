@@ -1,19 +1,10 @@
 import GradeBadge from "./GradeBadge";
 
-const DOT_COLORS = {
-  0: "bg-emerald-500",
-  1: "bg-yellow-500",
-  2: "bg-orange-500",
-  3: "bg-red-500",
-  4: "bg-purple-500"
-};
-
 function PatientRow({ patient, onViewReport }) {
+  const isGraded = patient.grade != null && patient.gradeText;
+
   return (
     <tr className="border-b border-black/5 last:border-0 hover:bg-[#f8f8f8]">
-      <td className="px-4 py-3">
-        <span className={`inline-block h-2.5 w-2.5 rounded-full ${DOT_COLORS[patient.grade] ?? "bg-[#8a8f98]"}`} />
-      </td>
       <td className="px-4 py-3 font-tight font-semibold text-[#242424]">{patient.id}</td>
       <td className="px-4 py-3">
         <div className="font-tight font-medium text-[#010110]">{patient.name}</div>
@@ -23,7 +14,11 @@ function PatientRow({ patient, onViewReport }) {
       </td>
       <td className="px-4 py-3 font-tight text-sm text-[#45545e]">{patient.screenDate}</td>
       <td className="px-4 py-3">
-        <GradeBadge grade={patient.grade} gradeText={patient.gradeText} />
+        {isGraded ? (
+          <GradeBadge grade={patient.grade} gradeText={patient.gradeText} />
+        ) : (
+          <span className="font-tight text-xs text-[#8a8f98]">Not analysed</span>
+        )}
       </td>
       <td className="px-4 py-3">
         <button
@@ -43,7 +38,6 @@ export default function PatientTable({ patients, onViewReport }) {
       <table className="w-full border-collapse text-left">
         <thead>
           <tr className="bg-[#f5f5f5] font-tight text-xs font-semibold uppercase text-[#45545e]">
-            <th className="px-4 py-3">Status</th>
             <th className="px-4 py-3">Patient ID</th>
             <th className="px-4 py-3">Name &amp; Details</th>
             <th className="px-4 py-3">Screen Date</th>
@@ -57,7 +51,7 @@ export default function PatientTable({ patients, onViewReport }) {
           ))}
           {patients.length === 0 && (
             <tr>
-              <td colSpan={6} className="px-4 py-6 text-center font-tight text-sm text-[#45545e]">
+              <td colSpan={5} className="px-4 py-6 text-center font-tight text-sm text-[#45545e]">
                 No patients found.
               </td>
             </tr>
